@@ -51,7 +51,7 @@ The NVIDIA CNN architecture was selected as baseline model. After some iteration
 <<<<<<< HEAD
 
 |Layer (type)|Output Shape|Param # |
-|:---------------------:|:---------------------------------------------:| 
+|:---------------------:|:------------------:|:------------------:|
 |lambda_1 (Lambda)      |(None, 160, 320, 3)     |  0         |
 |cropping2d_1 (Cropping2D)  |  (None, 80, 320, 3)      |  0         |
 |conv2d_1 (Conv2D)          |  (None, 38, 158, 24)     |  1824      |
@@ -59,13 +59,13 @@ The NVIDIA CNN architecture was selected as baseline model. After some iteration
 |conv2d_3 (Conv2D)          |  (None, 7, 37, 48)       |  43248     |
 |conv2d_4 (Conv2D)          |  (None, 5, 35, 64)       |  27712     |
 |dropout_1 (Dropout)        | (None, 5, 35, 64)        |    0 | 
-|conv2d_10 (Conv2D)         |  (None, 3, 33, 64)       |  36928     |
+|conv2d_5 (Conv2D)         |  (None, 3, 33, 64)       |  36928     |
 |dropout_1 (Dropout)        | (None, 3, 33, 64)        |    0 | 
 |flatten_2 (Flatten)        |  (None, 6336)            |  0         |
-|dense_5 (Dense)            |  (None, 100)             |  633700    |
-|dense_6 (Dense)            |  (None, 50)              |  5050      |
-|dense_7 (Dense)            |  (None, 10)              |  510       |
-|dense_8 (Dense)            |  (None, 1)               |  11        |
+|dense_1 (Dense)            |  (None, 100)             |  633700    |
+|dense_2 (Dense)            |  (None, 50)              |  5050      |
+|dense_3 (Dense)            |  (None, 10)              |  510       |
+|dense_4 (Dense)            |  (None, 1)               |  11        |
 
 *Total params: 770,619.0*
 
