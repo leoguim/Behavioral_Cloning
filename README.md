@@ -25,6 +25,7 @@ The goals of this project are the following:
 * model.py - contains the code for training and saving the convolution neural network. The file shows the pipeline used for training and validating the model, and it contains comments to explain how the code works.
 * drive.py - contains the code for driving the car in autonomous mode
 * model.h5 - contains trained convolution neural network 
+* run1.mp4 - contains video recorded of autonomous driving of 1 lap.
 
 
 ### 2. Submission includes functional code
@@ -47,6 +48,7 @@ The NVIDIA CNN architecture was selected as baseline model. After some iteration
 
 ![alt text][image1]
 
+<<<<<<< HEAD
 
 |Layer (type)|Output Shape|Param # |
 |:---------------------:|:---------------------------------------------:| 
