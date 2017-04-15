@@ -33,6 +33,7 @@ Using a [simulator](https://d17h27t6h515a5.cloudfront.net/topher/2016/November/5
 ```sh
 python drive.py model.h5
 ```
+**Note that Graphic Quality should be set to 'fastest'**
 
 ## Model Architecture and Training Strategy
 
