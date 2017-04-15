@@ -10,7 +10,6 @@ from sklearn.utils import shuffle
 
 
 # Functions to extract and augment images
-
 def load_records(path):
     records = []
     with open(path) as csvfile:
@@ -106,7 +105,9 @@ model.add(Conv2D(filters=24, kernel_size=5, strides=2, padding='valid', activati
 model.add(Conv2D(filters=36, kernel_size=5, strides=2, padding='valid', activation='relu'))
 model.add(Conv2D(filters=48, kernel_size=5, strides=2, padding='valid', activation='relu'))
 model.add(Conv2D(filters=64, kernel_size=3, strides=1, padding='valid', activation='relu'))
+model.add(Dropout(rate=0.5))
 model.add(Conv2D(filters=64, kernel_size=3, strides=1, padding='valid', activation='relu'))
+model.add(Dropout(rate=0.5))
 model.add(Flatten())
 model.add(Dense(100))
 model.add(Dense(50))
@@ -116,14 +117,14 @@ model.add(Dense(1))
 # Run Model
 
 batch_size = 32
-number_epochs = 4
+number_epochs = 5
 train_generator = generator(train_set, batch_size)
 validation_generator = generator(validation_set, batch_size)
 
 model.compile(loss='mse', optimizer='adam')
-history = model.fit_generator(train_generator, steps_per_epoch=len(X_train) / batch_size-1,
+history = model.fit_generator(train_generator, steps_per_epoch=len(X_train) / batch_size,
                               validation_data=validation_generator,
-                              validation_steps=len(X_train)/batch_size-1, epochs=number_epochs)
+                              validation_steps=len(X_train)/batch_size, epochs=number_epochs)
 
 # Save Model
 model.save('model.h5')
