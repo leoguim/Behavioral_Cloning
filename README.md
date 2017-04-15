@@ -40,6 +40,7 @@ python drive.py model.h5
 The model used is the [NVIDIA published Architecture](https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/) and consists of a set of 9 layers:
 * A normalization layer using a Keras lambda layer (model.py lines 104) 
 * 5 convolutional layers using a RELU activation function (model.py lines 106-110) 
+* 2 dropout layers (rate =50%) for the last 2 convolutional layers
 * 3 fully connected layers (model.py lines 112-114) 
 
 The NVIDIA CNN architecture was selected as baseline model. After some iterations, though, it was decided to use the NVIDIA model 'as is', since good driving performance was achieved for this project.
@@ -49,13 +50,15 @@ The NVIDIA CNN architecture was selected as baseline model. After some iteration
 
 |Layer (type)|Output Shape|Param # |
 |:---------------------:|:---------------------------------------------:| 
-|lambda_2 (Lambda)     |       (None, 160, 320, 3)     |  0         |
-|cropping2d_2 (Cropping2D)  |  (None, 80, 320, 3)      |  0         |
-|conv2d_6 (Conv2D)          |  (None, 38, 158, 24)     |  1824      |
-|conv2d_7 (Conv2D)          |  (None, 17, 77, 36)      |  21636     |
-|conv2d_8 (Conv2D)          |  (None, 7, 37, 48)       |  43248     |
-|conv2d_9 (Conv2D)          |  (None, 5, 35, 64)       |  27712     |
+|lambda_1 (Lambda)      |(None, 160, 320, 3)     |  0         |
+|cropping2d_1 (Cropping2D)  |  (None, 80, 320, 3)      |  0         |
+|conv2d_1 (Conv2D)          |  (None, 38, 158, 24)     |  1824      |
+|conv2d_2 (Conv2D)          |  (None, 17, 77, 36)      |  21636     |
+|conv2d_3 (Conv2D)          |  (None, 7, 37, 48)       |  43248     |
+|conv2d_4 (Conv2D)          |  (None, 5, 35, 64)       |  27712     |
+|dropout_1 (Dropout)        | (None, 5, 35, 64)        |    0 | 
 |conv2d_10 (Conv2D)         |  (None, 3, 33, 64)       |  36928     |
+|dropout_1 (Dropout)        | (None, 3, 33, 64)        |    0 | 
 |flatten_2 (Flatten)        |  (None, 6336)            |  0         |
 |dense_5 (Dense)            |  (None, 100)             |  633700    |
 |dense_6 (Dense)            |  (None, 50)              |  5050      |
@@ -63,7 +66,9 @@ The NVIDIA CNN architecture was selected as baseline model. After some iteration
 |dense_8 (Dense)            |  (None, 1)               |  11        |
 
 *Total params: 770,619.0*
+
 *Trainable params: 770,619.0*
+
 *Non-trainable params: 0.0*
 
 
@@ -71,7 +76,7 @@ The NVIDIA CNN architecture was selected as baseline model. After some iteration
 
 The model was trained and validated on different data sets to ensure that the model was not overfitting (code line 78-80). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
-No dropout layers were introduced on this model, since driving performance tested on the simulator met requirements. 
+Two dropout layers (50%) were introduced for the last 2 convolutional layers to reduce overfitting.
 At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
 
 ### 3. Model parameter tuning
@@ -85,13 +90,17 @@ The key strategy on deriving a good driving behavior was focused on gathering qu
 The following steps were followed in order to collect driving data to train the model. Note that this was a trial-and-error process. A few data points were captured and fed into the model and tested on the simulator. Base on observances, more data was captured.
 
 1) Center lane driving - 3 laps were recorded using center lane driving. Here is an example image of center lane driving:
+
 ![alt text][image2]
 
 2) Counterclockwise driving - 1 lap was recorded using center lane driving counterclockwise - Goal was to generalize.
 
 3) Recovering from the left and right sides of the road - 1 lap was recorded recovering the car from the side to the center of the lane. Note that only car recovering from the sides was recorded, and it was randomly recorded from left to center and right to center. These images show what a recovery looks like starting from teh right:
+
 ![alt text][image3]
+
 ![alt text][image4]
+
 ![alt text][image5]
 
 4) Driving through curves - 1 lap was recorded driving only through curves using slower speeds.
@@ -102,6 +111,7 @@ After the collection process, the number of data points was 13650 .
 A function was created to augment images by fliping all images and angles. (model.py line 39-46). The total number of images after augmentation was 27300.
 
 Here is a sample of a 'normal' and 'flipped' image:
+
 ![alt text][image6]
 ![alt text][image7]
 
